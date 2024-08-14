@@ -3,8 +3,8 @@
 ## Login and Register Screens
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="/TwitterClone/Screenshots/login.png" alt="Login Screen" style="width: 48%; height: 300px;"/>
-  <img src="/TwitterClone/Screenshots/register.png" alt="Register Screen" style="width: 48%; height: 300px;"/>
+  <img src="/TwitterClone/Screenshots/login.png" alt="Login Screen" style="width: 48%; height: 600px;"/>
+  <img src="/TwitterClone/Screenshots/register.png" alt="Register Screen" style="width: 48%; height: 600;"/>
 </div>
 
 <div style="display: flex; justify-content: space-between;">
