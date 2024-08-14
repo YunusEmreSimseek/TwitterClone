@@ -12,10 +12,17 @@ struct EmailField: View {
     var body: some View {
         VStack {
             HStack(spacing: .dynamicWidth(width: 0.05)) {
-                Image(.email)
+                Image(.newemail)
                     .resizable()
+                    .renderingMode(.template)
                     .scaledToFit()
-                    .frame(width: .dynamicWidth(width: 0.06))
+                    .foregroundStyle(.cBlue)
+                    .background(.cWhite)
+//                    .frame(width: .dynamicWidth(width: 0.05))
+                    .frame(width: .dynamicHeight(height: 0.025),height: .dynamicHeight(height: 0.025))
+
+                    
+                    
 
                 TextField("Email", text: $text)
                     .font(.footnote)

@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct KeyboardModifier: ViewModifier {
-    @Environment(\.globalItems) private var globalItems
-    func body(content: Content) -> some View {
-        return
-            content
-            .onReceive(globalItems.keyboardWillShowPublisher) { notification in
-                globalItems.isKeyboardVisible = true
-                if let keyboardFrame = notification.userInfo?[
-                    UIResponder.keyboardFrameEndUserInfoKey
-                ] as? CGRect {
-                    globalItems.keyboardHeight = keyboardFrame.height
-                }
-            }
-            .onReceive(globalItems.keyboardWillHidePublisher) { _ in
-                globalItems.isKeyboardVisible = false
-                globalItems.keyboardHeight = 0
-            }
-    }
+  @State var keyboardManager: KeyboardManager
+  func body(content: Content) -> some View {
+    return
+      content
+      .onReceive(keyboardManager.keyboardWillShowPublisher) { notification in
+        keyboardManager.showKeyboard()
+        if let keyboardFrame = notification.userInfo?[
+          UIResponder.keyboardFrameEndUserInfoKey
+        ] as? CGRect {
+          keyboardManager.keyboardHeight = keyboardFrame.height
+        }
+      }
+      .onReceive(keyboardManager.keyboardWillHidePublisher) { _ in
+        keyboardManager.dismissKeyboard()
+        keyboardManager.keyboardHeight = 0
+      }
+  }
 }

@@ -8,23 +8,30 @@
 import FirebaseCore
 import SwiftUI
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
-        FirebaseApp.configure()
-
-        return true
-    }
-}
-
 @main
 struct TwitterCloneApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    var body: some Scene {
-        WindowGroup {
-            MainNavigationView()
-        }
+
+  @State private var userManager: UserManager
+  @State private var navManager: NavigationManager
+  @State private var loadingManager: LoadingManager
+  @State private var keyboardManager: KeyboardManager
+
+  init() {
+    FirebaseApp.configure()
+    let tweetService = TweetService()
+    userManager = UserManager(tweetService: tweetService)
+    navManager = NavigationManager()
+    loadingManager = LoadingManager()
+    keyboardManager = KeyboardManager()
+  }
+
+  var body: some Scene {
+    WindowGroup {
+      MainNavigationView()
+        .environment(userManager)
+        .environment(navManager)
+        .environment(loadingManager)
+        .environment(keyboardManager)
     }
+  }
 }

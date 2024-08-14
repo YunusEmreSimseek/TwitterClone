@@ -10,31 +10,30 @@ import SwiftUI
 
 @Observable
 final class NavigationManager {
-    static var instance: NavigationManager = NavigationManager()
-    private init() {}
-    var path: NavigationPath = NavigationPath()
 
-    static func navigate(to_ destination: Destination) {
-        instance.path.append(destination)
-    }
+  var path: NavigationPath = NavigationPath()
 
-    static func navigateToBack() {
-        instance.path.removeLast()
-    }
+  func navigate(to_ destination: Destination) {
+    path.append(destination)
+  }
 
-    static func navigateToRoot() {
-        instance.path.removeLast(instance.path.count)
-    }
+  func navigateToBack() {
+    path.removeLast()
+  }
 
-    public enum Destination: Codable, Hashable {
-        case login
-        case register
-        case exploreDetail(user: UserModel)
-        case mainTab
+  func navigateToRoot() {
+    path.removeLast(path.count)
+  }
 
-    }
+  public enum Destination: Codable, Hashable {
+    case login
+    case register
+    case exploreDetail(user: UserModel, uid: String?)
+    case mainTab
+    case tweetDetail(tweet: TweetModel)
+  }
 }
 
 struct NavigationManagerKey: EnvironmentKey {
-    static var defaultValue = NavigationManager.instance
+  static var defaultValue = NavigationManager()
 }

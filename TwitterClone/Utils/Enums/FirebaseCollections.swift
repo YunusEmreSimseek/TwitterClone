@@ -10,4 +10,5 @@ import Foundation
 enum FirebaseCollections: String {
     case user = "user"
     case tweet = "tweet"
+    case reply = "reply"
 }

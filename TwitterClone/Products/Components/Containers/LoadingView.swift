@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LoadingView: View {
-    @Environment(\.globalItems) var globalItems
-    var body: some View {
-        ProgressView()
-            .scaleEffect(globalItems.isLoading ? 1.5 : 0)
-    }
+  @Environment(\.loadingManager) private var loadingManager
+  var body: some View {
+    ProgressView()
+      .scaleEffect(loadingManager.isLoading ? 1.5 : 0)
+  }
 }

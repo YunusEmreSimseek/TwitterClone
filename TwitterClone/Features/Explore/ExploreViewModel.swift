@@ -5,34 +5,39 @@
 //  Created by Emre Simsek on 6.08.2024.
 //
 
-import Foundation
+import SwiftUI
 
 @Observable
 final class ExploreViewModel {
 
-    var users: [UserModel] = []
-    private let userService: IUserService = UserService()
-    var isFirstAppear: Bool = true
+  init(userService: IUserService) {
+    self.userService = userService
+    Task { await fetchUsers() }
+  }
 
-    func fetchUsers() async {
-        GlobalItems.startLoading()
-        guard let users = await userService.fetchUsers()
-        else {
-            GlobalItems.endLoading()
-            users = []
-            return
-        }
-        GlobalItems.endLoading()
-        self.users = users
-    }
+  var users: [UserModel] = []
 
-    func checkFirstAppear() async {
-        if isFirstAppear {
-            GlobalItems.startLoading()
-            await fetchUsers()
-            isFirstAppear = false
-            GlobalItems.endLoading()
-        }
+  @ObservationIgnored
+  private let userService: IUserService
+
+  private var loadingManager: LoadingManager = LoadingManager()
+
+  func setLoadingManager(loadingManager: LoadingManager) {
+    self.loadingManager = loadingManager
+  }
+
+
+  func fetchUsers() async {
+    loadingManager.startLoading()
+    guard let users = await userService.fetchUsers()
+    else {
+      loadingManager.endLoading()
+      users = []
+      return
     }
+    loadingManager.endLoading()
+    self.users = []
+    self.users = users
+  }
 
 }

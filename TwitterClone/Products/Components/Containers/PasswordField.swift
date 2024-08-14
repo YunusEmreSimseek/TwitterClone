@@ -8,22 +8,25 @@
 import SwiftUI
 
 struct PasswordField: View {
-    @Binding var text: String
-    var body: some View {
-        VStack {
-            HStack(spacing: .dynamicWidth(width: 0.05)) {
-                Image(.password)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: .dynamicWidth(width: 0.06))
+  @Binding var text: String
+  var body: some View {
+    VStack {
+      HStack(spacing: .dynamicWidth(width: 0.05)) {
+        Image(.password2)
+          .resizable()
+          .renderingMode(.template)
+          .scaledToFit()
+          .foregroundStyle(.cBlue)
+          .background(.cWhite)
+          .frame(width: .dynamicHeight(height: 0.025),height: .dynamicHeight(height: 0.025))
 
-                SecureField("Password", text: $text)
-                    .font(.footnote)
-            }
-            .vPadding()
+        SecureField("Password", text: $text)
+          .font(.footnote)
+      }
+      .vPadding()
 
-            Divider()
-                .background(.primary)
-        }
+      Divider()
+        .background(.primary)
     }
+  }
 }
